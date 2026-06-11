@@ -4,7 +4,7 @@ Modern, cyber-security-themed website for **Berettalabs**, a penetration testing
 offensive security firm. Built as a fast, static, multi-page site with a dark theme,
 brand-red accents (`#b80404`) and the **Ubuntu** typeface.
 
-🔗 **Live site:** _enabled via GitHub Pages — URL appears here after the first deploy_
+🔗 **Live site:** **https://dn0m1n8tor.github.io/berettalabs-website/**
 
 ## 🎥 Demo
 
