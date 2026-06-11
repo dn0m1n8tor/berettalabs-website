@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Berettalabs</title>
+  <meta name="description" content="Answers to common questions about Berettalabs penetration testing engagements, timelines, re-testing, certifications and reporting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <header class="site-header" id="header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo" aria-label="Berettalabs home">
+        <span class="logo-mark"><svg class="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v6c0 5.25 3.84 9.74 9 11 5.16-1.26 9-5.75 9-11V6l-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="logo-text">BERETTA<span class="accent">LABS</span></span>
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+
+        <div class="nav-dropdown">
+          <button class="nav-link dropdown-toggle" aria-expanded="false">
+            Services <svg class="caret" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="services.html" class="dropdown-link dropdown-all"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v6c0 5.25 3.84 9.74 9 11 5.16-1.26 9-5.75 9-11V6l-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>All Services</span></a>
+            <a href="services/web-app-penetration-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 5h18v12H3z M3 9h18 M7 21h10 M9 17v4 M15 17v4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Web Application Penetration Testing</span></a>
+          <a href="services/mobile-app-penetration-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Mobile Application Penetration Testing</span></a>
+          <a href="services/api-security-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 9l-4 3 4 3 M16 9l4 3-4 3 M13 6l-2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>API Security Testing (APIST)</span></a>
+          <a href="services/cloud-security-assessment.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 18a4.5 4.5 0 010-9 6 6 0 0111.7 1.5A4 4 0 0118 18H7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Cloud Security Assessment</span></a>
+          <a href="services/network-penetration-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="7" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M10 7h7v7" stroke="currentColor" stroke-width="1.6"/></svg><span>Network Penetration Testing</span></a>
+          <a href="services/source-code-review.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 8l-4 4 4 4 M15 8l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Source Code Review (SCR)</span></a>
+          <a href="services/wireless-security-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13a10 10 0 0114 0 M8 16a6 6 0 018 0 M12 19h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Wireless Security Testing</span></a>
+          <a href="services/red-teaming-exercise.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l2 4 4.5.5-3.3 3.2.8 4.5L12 13l-4 2.2.8-4.5L5.5 7.5 10 7l2-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 15v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Red Teaming Exercise</span></a>
+          <a href="services/iot-security-testing.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6"/><path d="M9 4v3M12 4v3M15 4v3M9 17v3M12 17v3M15 17v3M4 9h3M4 12h3M4 15h3M17 9h3M17 12h3M17 15h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>IoT Security Testing</span></a>
+          <a href="services/sdlc-consulting.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 109 9 M12 3v9h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure Development Life Cycle</span></a>
+          <a href="services/web3-audits.html" class="dropdown-link"><svg class="dd-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 10l6-7 6 7-6 11-6-11z M6 10h12 M12 3v18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Web3 Audits</span></a>
+          </div>
+        </div>
+
+        <a href="case-studies.html" class="nav-link">Case Studies</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="faq.html" class="nav-link active">FAQ</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="contact.html" class="btn btn-primary nav-cta">Get a Quote</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+
+    <section class="page-hero">
+      <div class="container reveal">
+        <p class="kicker">// FAQ</p>
+        <h1>Frequently Asked Questions</h1>
+        <p class="page-hero-sub">Everything you need to know about working with Berettalabs.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container narrow">
+        <div class="faq-list">
+          <div class="faq-item reveal">
+            <button class="faq-q">What is the difference between a vulnerability scan and a penetration test?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>A scan is automated and finds known, surface-level issues. A penetration test is performed by certified human experts who manually exploit and chain vulnerabilities — including business-logic flaws and authorization gaps that scanners cannot find.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">How long does an engagement take?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>It depends on scope. A focused web-app test may take 1–2 weeks, while a full red-team or large cloud assessment can run several weeks. We give you a clear timeline in the proposal after scoping.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">Do you offer re-testing after we fix the issues?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Yes — a free re-assessment is included in every engagement. Once your team patches the findings, we re-test each one to confirm the fixes actually hold.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">Will testing disrupt our production systems?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>We agree rules of engagement up front and test carefully to avoid disruption. Where appropriate, we work against staging environments or schedule intrusive tests during agreed windows.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">What certifications does your team hold?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>Our engineers hold industry-recognized certifications including OSCP, CEH and CISSP, backed by 8+ years of hands-on offensive security experience.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">How do you handle the sensitive data you find?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>All findings and data are handled under strict confidentiality, encrypted in transit and at rest, and securely destroyed after the engagement per our data-handling policy and any NDA in place.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q">What do we receive at the end?<span class="faq-icon">+</span></button>
+            <div class="faq-a"><p>A detailed report with an executive summary, every finding rated by severity, proof-of-concept evidence, and clear, developer-friendly remediation guidance — plus a re-assessment once you have patched.</p></div>
+          </div></div>
+      </div>
+    </section>
+
+    <section class="cta-banner">
+      <div class="container reveal">
+        <h2>Your Attackers Aren't Waiting.<br /><span class="accent">Neither Should You.</span></h2>
+        <a href="contact.html" class="btn btn-primary btn-lg">Shield Up Today</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-mark"><svg class="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v6c0 5.25 3.84 9.74 9 11 5.16-1.26 9-5.75 9-11V6l-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="logo-text">BERETTA<span class="accent">LABS</span></span>
+        </a>
+        <p>Leading cybersecurity &amp; IT services firm. Expert threat detection, robust data protection, proactive defense against cyberattacks.</p>
+        <div class="socials">
+          <a href="https://facebook.com/berettalabs" aria-label="Facebook">FB</a>
+          <a href="https://instagram.com/berettalabs" aria-label="Instagram">IG</a>
+          <a href="https://linkedin.com/company/berettalabs" aria-label="LinkedIn">IN</a>
+          <a href="https://twitter.com/berettalabs" aria-label="Twitter">X</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="blog.html">Blog &amp; News</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services/web-app-penetration-testing.html">Web Application Pentest</a>
+        <a href="services/mobile-app-penetration-testing.html">Mobile Application Pentest</a>
+        <a href="services/api-security-testing.html">API Security Testing</a>
+        <a href="services/cloud-security-assessment.html">Cloud Security Assessment</a>
+        <a href="services/network-penetration-testing.html">Network Pentest</a>
+        <a href="services/source-code-review.html">Source Code Review (SCR)</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+918310223328">+91 83102 23328</a>
+        <a href="mailto:info@berettalabs.com">info@berettalabs.com</a>
+        <span>EON Free Zone, Kharadi,<br />Pune — MH, 411014</span>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 Berettalabs. All rights reserved.</p>
+      <p class="mono">[ shield_status: <span class="accent">ACTIVE</span> ]</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
