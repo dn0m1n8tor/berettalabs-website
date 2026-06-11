@@ -8,11 +8,11 @@ brand-red accents (`#b80404`) and the **Ubuntu** typeface.
 
 ## 🎥 Demo
 
-<!-- Record a short screen capture of the site (Windows: Win+G Game Bar, or ScreenToGif),
-     save it as demo.mp4 / demo.gif in an `assets/` folder, and it will render below. -->
+The **live GitHub Pages site is the demo** — it's interactive, animated, and always
+reflects the latest committed version. Click the live link above.
 
-> _A demo recording will appear here. To add it, drop `demo.gif` (or `demo.mp4`) into
-> an `assets/` folder and commit — the embed below picks it up automatically._
+> Want a recorded clip too? Capture ~20s with Windows `Win+G` Game Bar (or ScreenToGif),
+> save it as `assets/demo.gif`, commit, and uncomment the line below to embed it.
 
 <!-- ![Berettalabs website demo](assets/demo.gif) -->
 
