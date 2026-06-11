@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-shield"><svg class="" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 6v6c0 5.25 3.84 9.74 9 11 5.16-1.26 9-5.75 9-11V6l-9-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5 4.5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="preloader-scan"></div></div>
+    <p class="preloader-text mono">INITIALIZING<span class="dots"></span></p>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>
   <header class="site-header" id="header">
@@ -152,6 +157,10 @@
       <p class="mono">[ shield_status: <span class="accent">ACTIVE</span> ]</p>
     </div>
   </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 
   <script src="js/main.js"></script>
 </body>

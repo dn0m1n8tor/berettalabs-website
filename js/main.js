@@ -162,3 +162,168 @@ document.querySelectorAll('.faq-item').forEach(item => {
     a.style.maxHeight = open ? a.scrollHeight + 'px' : null;
   });
 });
+
+// ============================================================
+// Dynamic / premium enhancements
+// ============================================================
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ---------- Preloader ----------
+const preloader = document.getElementById('preloader');
+if (preloader) {
+  const hide = () => preloader.classList.add('done');
+  window.addEventListener('load', () => setTimeout(hide, reduceMotion ? 0 : 500));
+  // Safety net so it never gets stuck.
+  setTimeout(hide, 2500);
+}
+
+// ---------- Scroll progress bar ----------
+const progress = document.getElementById('scrollProgress');
+if (progress) {
+  const updateProgress = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+}
+
+// ---------- Back to top ----------
+const backToTop = document.getElementById('backToTop');
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+  backToTop.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+  );
+}
+
+// ---------- Hero rotating word ----------
+const rotator = document.getElementById('rotator');
+if (rotator && !reduceMotion) {
+  const words = (rotator.dataset.words || '').split(',').map(w => w.trim()).filter(Boolean);
+  let i = 0;
+  if (words.length) {
+    setInterval(() => {
+      i = (i + 1) % words.length;
+      rotator.innerHTML = `<span class="rot-word">${words[i]}</span>`;
+    }, 2200);
+  }
+}
+
+// ---------- Card spotlight + subtle 3D tilt ----------
+if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.service-card, .case-card, .blog-card, .feature-card').forEach(card => {
+    card.classList.add('tilt');
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+      const rx = ((y / r.height) - 0.5) * -5;
+      const ry = ((x / r.width) - 0.5) * 5;
+      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-5px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+}
+
+// ---------- Testimonials carousel ----------
+const carousel = document.getElementById('carousel');
+if (carousel) {
+  const track = carousel.querySelector('#carouselTrack');
+  const slides = [...track.children];
+  const dotsWrap = carousel.querySelector('#carouselDots');
+  let index = 0, timer;
+
+  slides.forEach((_, n) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (n === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to testimonial ${n + 1}`);
+    dot.addEventListener('click', () => { go(n); reset(); });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = [...dotsWrap.children];
+
+  function go(n) {
+    index = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+  function reset() {
+    if (reduceMotion) return;
+    clearInterval(timer);
+    timer = setInterval(() => go(index + 1), 5500);
+  }
+
+  carousel.querySelector('#carouselNext').addEventListener('click', () => { go(index + 1); reset(); });
+  carousel.querySelector('#carouselPrev').addEventListener('click', () => { go(index - 1); reset(); });
+  carousel.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel.addEventListener('mouseleave', reset);
+  reset();
+}
+
+// ---------- Hero particle network canvas ----------
+const canvas = document.getElementById('netCanvas');
+if (canvas && !reduceMotion) {
+  const ctx = canvas.getContext('2d');
+  let w, h, nodes, raf;
+  const COUNT = () => Math.min(70, Math.floor(window.innerWidth / 22));
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = rect.width * dpr;
+    h = canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    w = rect.width; h = rect.height;
+    nodes = Array.from({ length: COUNT() }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const n of nodes) {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > w) n.vx *= -1;
+      if (n.y < 0 || n.y > h) n.vy *= -1;
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 130) {
+          ctx.strokeStyle = `rgba(184, 4, 4, ${0.18 * (1 - dist / 130)})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    for (const n of nodes) {
+      ctx.fillStyle = 'rgba(233, 0, 55, 0.7)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { cancelAnimationFrame(raf); resize(); draw(); }, 200);
+  });
+  resize();
+  draw();
+}

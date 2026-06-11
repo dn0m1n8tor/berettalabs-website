@@ -200,6 +200,11 @@ function head(title, desc, depth = 0) {
   <link rel="stylesheet" href="${root}css/style.css" />
 </head>
 <body>
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-shield">${svg('shield')}<div class="preloader-scan"></div></div>
+    <p class="preloader-text mono">INITIALIZING<span class="dots"></span></p>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-glow" aria-hidden="true"></div>`;
 }
@@ -292,6 +297,10 @@ function footer(depth = 0) {
     </div>
   </footer>
 
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
   <script src="${r}js/main.js"></script>
 </body>
 </html>`;
@@ -358,10 +367,11 @@ function buildHome() {
 
   const body = `
     <section class="hero" id="home">
+      <canvas class="hero-net" id="netCanvas" aria-hidden="true"></canvas>
       <div class="container hero-grid">
         <div class="hero-content reveal">
           <p class="kicker"><span class="pulse-dot"></span> ULTIMATE CYBERSECURITY SOLUTION</p>
-          <h1>We Break In<br />So Attackers <span class="accent glitch" data-text="Can't.">Can't.</span></h1>
+          <h1>We Secure Your<br /><span class="rotator accent" id="rotator" data-words="Web Apps,Mobile Apps,APIs,Cloud,Networks,Smart Contracts">Web Apps</span><br />So Attackers <span class="accent glitch" data-text="Can't.">Can't.</span></h1>
           <p class="lead">
             Berettalabs delivers expert threat detection, robust data protection and proactive
             defense against cyberattacks — powered by OSCP, CEH &amp; CISSP certified offensive
@@ -393,6 +403,17 @@ function buildHome() {
         <div class="stat reveal"><strong class="counter" data-target="230">0</strong><span>+ Assets Secured</span></div>
         <div class="stat reveal"><strong class="counter" data-target="34">0</strong><span>+ Satisfied Clients</span></div>
         <div class="stat reveal"><strong class="counter" data-target="100">0</strong><span>+ Audits Conducted</span></div>
+      </div>
+    </section>
+
+    <section class="marquee-section" aria-label="Standards and frameworks we align with">
+      <div class="marquee-label mono">// METHODOLOGY ALIGNED WITH INDUSTRY STANDARDS</div>
+      <div class="marquee">
+        <div class="marquee-track">
+          ${['OWASP','PTES','NIST 800-115','MITRE ATT&CK','OSCP','CEH','CISSP','ISO 27001','OWASP MASVS','SANS','OWASP API Top 10','CREST']
+            .concat(['OWASP','PTES','NIST 800-115','MITRE ATT&CK','OSCP','CEH','CISSP','ISO 27001','OWASP MASVS','SANS','OWASP API Top 10','CREST'])
+            .map(x => `<span class="marquee-item">${x}</span>`).join('\n          ')}
+        </div>
       </div>
     </section>
 
@@ -460,10 +481,20 @@ function buildHome() {
     <section class="testimonials section" id="testimonials">
       <div class="container">
         <div class="section-head reveal"><p class="kicker">// TESTIMONIALS</p><h2>What Our Clients Say</h2></div>
-        <div class="testimonial-grid">
-          <blockquote class="testimonial reveal"><p>"Berettalabs found issues two previous vendors completely missed. Their report was the clearest we've ever received — our devs fixed everything in a week."</p><footer>— CTO, Fintech Startup</footer></blockquote>
-          <blockquote class="testimonial reveal"><p>"Professional, responsive, and genuinely skilled. The free re-assessment after our fixes gave us real confidence going into our compliance audit."</p><footer>— Security Manager, SaaS Company</footer></blockquote>
-          <blockquote class="testimonial reveal"><p>"They treated our product like their own. The business-logic flaws they uncovered would never show up in an automated scan."</p><footer>— Co-founder, E-Commerce Platform</footer></blockquote>
+        <div class="carousel reveal" id="carousel">
+          <div class="carousel-track" id="carouselTrack">
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>Berettalabs found issues two previous vendors completely missed. Their report was the clearest we've ever received — our devs fixed everything in a week.</p><footer><span class="t-avatar">CT</span><span><strong>CTO</strong>Fintech Startup</span></footer></blockquote>
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>Professional, responsive, and genuinely skilled. The free re-assessment after our fixes gave us real confidence going into our compliance audit.</p><footer><span class="t-avatar">SM</span><span><strong>Security Manager</strong>SaaS Company</span></footer></blockquote>
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>They treated our product like their own. The business-logic flaws they uncovered would never show up in an automated scan.</p><footer><span class="t-avatar">CF</span><span><strong>Co-founder</strong>E-Commerce Platform</span></footer></blockquote>
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>The red-team exercise was eye-opening. We discovered exactly where our detection gaps were and closed them before it mattered in the real world.</p><footer><span class="t-avatar">CO</span><span><strong>COO</strong>Logistics Platform</span></footer></blockquote>
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>Fast, thorough, and easy to work with. The remediation guidance was specific enough that our engineers didn't have to guess at anything.</p><footer><span class="t-avatar">IM</span><span><strong>IT Manager</strong>Healthcare Provider</span></footer></blockquote>
+            <blockquote class="testimonial"><div class="quote-mark">"</div><p>Our Web3 protocol audit gave our investors real confidence. Berettalabs caught an economic exploit path we never would have found on our own.</p><footer><span class="t-avatar">DV</span><span><strong>DevOps Lead</strong>DeFi Project</span></footer></blockquote>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="carouselPrev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="carousel-dots" id="carouselDots"></div>
+            <button class="carousel-btn" id="carouselNext" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
         </div>
       </div>
     </section>
