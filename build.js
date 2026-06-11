@@ -25,6 +25,44 @@ const ICONS = {
 };
 const svg = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">${ICONS[k]}</svg>`;
 
+/* ---------- Shared stats block (animated counter rings) ---------- */
+const STATS = [
+  { n: 150, pct: 92, label: 'Critical Vulnerabilities' },
+  { n: 230, pct: 84, label: 'Assets Secured' },
+  { n: 34, pct: 70, label: 'Satisfied Clients' },
+  { n: 100, pct: 88, label: 'Audits Conducted' },
+];
+function statsBlock(id = '') {
+  const cards = STATS.map(s => `<div class="stat reveal">
+          <div class="stat-ring" data-pct="${s.pct}">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="ring-fg" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <span class="stat-val"><strong class="counter" data-target="${s.n}">0</strong><span class="stat-plus">+</span></span>
+          </div>
+          <span class="stat-label">${s.label}</span>
+        </div>`).join('\n        ');
+  return `
+    <section class="stats"${id ? ` id="${id}"` : ''}>
+      <div class="container stats-grid">
+        ${cards}
+      </div>
+    </section>`;
+}
+
+/* ---------- Animated circuit divider between sections ---------- */
+function divider() {
+  const d = 'M0 20 H470 l14 -12 h60 l14 12 H730 l14 12 h60 l14 -12 H1200';
+  return `
+    <div class="section-divider" aria-hidden="true">
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none">
+        <path class="div-trace" d="${d}"/>
+        <path class="div-spark" d="${d}"/>
+      </svg>
+    </div>`;
+}
+
 /* ---------- Services data ---------- */
 const SERVICES = [
   {
@@ -194,6 +232,7 @@ function head(title, desc, depth = 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>${title}</title>
   <meta name="description" content="${desc}" />
+  <link rel="icon" type="image/png" href="${root}assets/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -220,8 +259,7 @@ function header(active = '', depth = 0) {
   <header class="site-header" id="header">
     <div class="container nav-wrap">
       <a href="${r}index.html" class="logo" aria-label="Berettalabs home">
-        <span class="logo-mark">${svg('shield')}</span>
-        <span class="logo-text">BERETTA<span class="accent">LABS</span></span>
+        <img src="${r}assets/logo-light.png" alt="Berettalabs" class="logo-img" width="170" height="60" />
       </a>
 
       <nav class="main-nav" id="mainNav" aria-label="Main navigation">
@@ -260,8 +298,7 @@ function footer(depth = 0) {
     <div class="container footer-grid">
       <div class="footer-brand">
         <a href="${r}index.html" class="logo">
-          <span class="logo-mark">${svg('shield')}</span>
-          <span class="logo-text">BERETTA<span class="accent">LABS</span></span>
+          <img src="${r}assets/logo-light.png" alt="Berettalabs" class="logo-img" width="170" height="60" />
         </a>
         <p>Leading cybersecurity &amp; IT services firm. Expert threat detection, robust data protection, proactive defense against cyberattacks.</p>
         <div class="socials">
@@ -368,6 +405,11 @@ function buildHome() {
   const body = `
     <section class="hero" id="home">
       <canvas class="hero-net" id="netCanvas" aria-hidden="true"></canvas>
+      <div class="hero-aurora" aria-hidden="true"></div>
+      <div class="radar-sweep" aria-hidden="true">
+        <span class="radar-ring"></span><span class="radar-ring"></span><span class="radar-ring"></span>
+        <span class="radar-beam"></span>
+      </div>
       <div class="container hero-grid">
         <div class="hero-content reveal">
           <p class="kicker"><span class="pulse-dot"></span> ULTIMATE CYBERSECURITY SOLUTION</p>
@@ -397,25 +439,7 @@ function buildHome() {
       </div>
     </section>
 
-    <section class="stats" id="stats">
-      <div class="container stats-grid">
-        <div class="stat reveal"><strong class="counter" data-target="150">0</strong><span>+ Critical Vulnerabilities</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="230">0</strong><span>+ Assets Secured</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="34">0</strong><span>+ Satisfied Clients</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="100">0</strong><span>+ Audits Conducted</span></div>
-      </div>
-    </section>
-
-    <section class="marquee-section" aria-label="Standards and frameworks we align with">
-      <div class="marquee-label mono">// METHODOLOGY ALIGNED WITH INDUSTRY STANDARDS</div>
-      <div class="marquee">
-        <div class="marquee-track">
-          ${['OWASP','PTES','NIST 800-115','MITRE ATT&CK','OSCP','CEH','CISSP','ISO 27001','OWASP MASVS','SANS','OWASP API Top 10','CREST']
-            .concat(['OWASP','PTES','NIST 800-115','MITRE ATT&CK','OSCP','CEH','CISSP','ISO 27001','OWASP MASVS','SANS','OWASP API Top 10','CREST'])
-            .map(x => `<span class="marquee-item">${x}</span>`).join('\n          ')}
-        </div>
-      </div>
-    </section>
+${statsBlock('stats')}
 
     <section class="about section" id="about">
       <div class="container about-grid">
@@ -437,6 +461,7 @@ function buildHome() {
       </div>
     </section>
 
+${divider()}
     <section class="services section" id="services">
       <div class="container">
         <div class="section-head reveal">
@@ -467,6 +492,7 @@ function buildHome() {
       </div>
     </section>
 
+${divider()}
     <section class="team section" id="team">
       <div class="container">
         <div class="section-head reveal"><p class="kicker">// THE TEAM</p><h2>Operators Behind the Shield</h2></div>
@@ -534,14 +560,7 @@ function buildAbout() {
       </div>
     </section>
 
-    <section class="stats">
-      <div class="container stats-grid">
-        <div class="stat reveal"><strong class="counter" data-target="150">0</strong><span>+ Critical Vulnerabilities</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="230">0</strong><span>+ Assets Secured</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="34">0</strong><span>+ Satisfied Clients</span></div>
-        <div class="stat reveal"><strong class="counter" data-target="100">0</strong><span>+ Audits Conducted</span></div>
-      </div>
-    </section>
+${statsBlock()}
 
     <section class="section">
       <div class="container">

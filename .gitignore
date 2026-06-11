@@ -11,3 +11,7 @@ Thumbs.db
 # Local env
 .env
 .env.local
+
+# Local debug screenshots (not part of the site)
+images/
+_preview.png

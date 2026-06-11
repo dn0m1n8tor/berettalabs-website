@@ -88,6 +88,15 @@ const counterObserver = new IntersectionObserver(entries => {
     const duration = 1600;
     const start = performance.now();
 
+    // Drive the surrounding progress ring (if present)
+    const ringWrap = el.closest('.stat-ring');
+    const ring = ringWrap && ringWrap.querySelector('.ring-fg');
+    if (ring) {
+      const C = 2 * Math.PI * 52; // r = 52
+      const pct = parseFloat(ringWrap.dataset.pct) || 100;
+      ring.style.strokeDashoffset = C * (1 - pct / 100);
+    }
+
     const tick = now => {
       const t = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - t, 3);
@@ -326,4 +335,42 @@ if (canvas && !reduceMotion) {
   });
   resize();
   draw();
+}
+
+// ---------- Magnetic primary buttons ----------
+if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.btn-primary, .btn-lg').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const mx = e.clientX - r.left - r.width / 2;
+      const my = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${(mx * 0.25).toFixed(1)}px, ${(my * 0.4 - 2).toFixed(1)}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+}
+
+// ---------- Subtle scroll parallax on decorative visuals ----------
+if (!reduceMotion) {
+  const parallaxTargets = [];
+  document.querySelectorAll('.radar-sweep').forEach(el => parallaxTargets.push([el, 0.16, 'radar']));
+  document.querySelectorAll('.shield-frame').forEach(el => parallaxTargets.push([el, 0.1, 'shield']));
+
+  if (parallaxTargets.length) {
+    let ticking = false;
+    const apply = () => {
+      const vh = window.innerHeight;
+      for (const [el, speed] of parallaxTargets) {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < -200 || rect.top > vh + 200) continue;
+        const off = (rect.top + rect.height / 2 - vh / 2) / vh; // -0.5..0.5
+        el.style.transform = `translateY(${(-off * speed * 100).toFixed(1)}px)`;
+      }
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(apply); }
+    }, { passive: true });
+    apply();
+  }
 }

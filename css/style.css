@@ -112,6 +112,13 @@ ul, ol { list-style: none; }
 .nav-wrap { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 
 .logo { display: flex; align-items: center; gap: 0.6rem; }
+.logo-img {
+  height: 38px; width: auto; display: block;
+  filter: drop-shadow(0 0 8px rgba(184, 4, 4, 0.45));
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+.logo:hover .logo-img { filter: drop-shadow(0 0 12px rgba(229, 9, 20, 0.7)); transform: translateY(-1px); }
+.site-footer .logo-img { height: 42px; }
 .logo-mark {
   width: 38px; height: 38px; color: var(--red-bright);
   display: grid; place-items: center;
@@ -911,11 +918,121 @@ ul, ol { list-style: none; }
 .reveal.visible { opacity: 1; transform: none; }
 .reveal.stagger { transition-delay: var(--d, 0s); }
 
+/* ============================================================
+   Graphics enhancements
+   ============================================================ */
+
+/* ---------- Hero aurora glow ---------- */
+.hero-aurora {
+  position: absolute; inset: -25% -10% auto -10%; height: 90%;
+  z-index: 0; pointer-events: none; filter: blur(64px); opacity: 0.6;
+  background:
+    radial-gradient(38% 50% at 22% 32%, rgba(233, 0, 55, 0.22), transparent 70%),
+    radial-gradient(34% 46% at 80% 18%, rgba(184, 4, 4, 0.20), transparent 70%),
+    radial-gradient(46% 58% at 62% 72%, rgba(120, 0, 30, 0.18), transparent 72%);
+  animation: aurora 18s ease-in-out infinite alternate;
+}
+@keyframes aurora {
+  0%   { transform: translate3d(-3%, -2%, 0) scale(1); }
+  50%  { transform: translate3d(4%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(-2%, 3%, 0) scale(1.04); }
+}
+
+/* ---------- Hero radar sweep ---------- */
+.radar-sweep {
+  position: absolute; z-index: 0; pointer-events: none;
+  top: 14%; right: -130px; width: 460px; height: 460px; opacity: 0.5;
+}
+.radar-ring {
+  position: absolute; inset: 0; margin: auto; border-radius: 50%;
+  border: 1px solid rgba(184, 4, 4, 0.22);
+}
+.radar-ring:nth-child(1) { width: 100%; height: 100%; }
+.radar-ring:nth-child(2) { width: 66%; height: 66%; }
+.radar-ring:nth-child(3) { width: 33%; height: 33%; }
+.radar-beam {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(233, 0, 55, 0.34), rgba(233, 0, 55, 0.02) 24%, transparent 32%);
+  animation: radar 4.5s linear infinite;
+}
+@keyframes radar { to { transform: rotate(360deg); } }
+
+/* ---------- Service-card icon glow ---------- */
+.service-icon {
+  position: relative; overflow: visible;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.service-icon::before {
+  content: ''; position: absolute; inset: -3px; border-radius: 14px; padding: 3px;
+  background: conic-gradient(from 0deg, transparent 0 55%, var(--red-bright) 78%, var(--red) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.service-card:hover .service-icon::before { opacity: 1; animation: iconring 2.6s linear infinite; }
+@keyframes iconring { to { transform: rotate(360deg); } }
+.service-card:hover .service-icon {
+  background: rgba(233, 0, 55, 0.16);
+  box-shadow: 0 0 26px rgba(233, 0, 55, 0.4);
+  transform: translateZ(24px);
+}
+.service-card:hover .service-icon svg { filter: drop-shadow(0 0 6px rgba(233, 0, 55, 0.75)); }
+
+/* ---------- Animated section divider ---------- */
+.section-divider { position: relative; height: 38px; margin: -6px 0; pointer-events: none; }
+.section-divider svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.div-trace { fill: none; stroke: rgba(184, 4, 4, 0.22); stroke-width: 1.4; }
+.div-spark {
+  fill: none; stroke: var(--red-bright); stroke-width: 2.2; stroke-linecap: round;
+  stroke-dasharray: 46 1180;
+  filter: drop-shadow(0 0 5px var(--red-bright));
+  animation: spark 5s linear infinite;
+}
+@keyframes spark { from { stroke-dashoffset: 1226; } to { stroke-dashoffset: 0; } }
+
+/* ---------- Stat progress rings ---------- */
+.stats-grid .stat {
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.stat-ring { position: relative; width: 124px; height: 124px; }
+.stat-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--line-soft); stroke-width: 5; }
+.ring-fg {
+  fill: none; stroke: var(--red-bright); stroke-width: 5; stroke-linecap: round;
+  stroke-dasharray: 326.7; stroke-dashoffset: 326.7;
+  filter: drop-shadow(0 0 6px rgba(233, 0, 55, 0.55));
+  transition: stroke-dashoffset 1.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stat-val {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; gap: 1px;
+}
+.stat-val .stat-plus {
+  align-self: center;
+  font-size: 0.95rem;
+  transform: translateY(-0.45em);
+}
+.stat-val .counter {
+  font-family: var(--mono); font-weight: 700; color: var(--red-bright);
+  font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1;
+}
+.stat-val .stat-plus { font-family: var(--mono); color: var(--red-bright); font-size: 1.1rem; }
+.stat .stat-label { color: var(--text-dim); font-size: 0.92rem; text-align: center; }
+
+@media (max-width: 720px) {
+  .radar-sweep { display: none; }
+  .stat-ring { width: 104px; height: 104px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .glitch::before, .glitch::after, .scan-line, .hero-card, .pulse-dot,
   .marquee-track, .rotator, .preloader-shield, .preloader-scan, .dots::after { animation: none; }
   .btn-primary::after { display: none; }
+  .hero-aurora, .radar-beam, .div-spark { animation: none; }
+  .service-card:hover .service-icon::before { animation: none; }
   html { scroll-behavior: auto; }
 }
 
